@@ -19,7 +19,6 @@ The study compared a GPT-based conversational agent (CA) that collects the 43-it
 | `scripts/compute_sus.py` | System Usability Scale composite (Brooke's 0–100 scoring) per participant, summary statistics, Cronbach's α. |
 | `scripts/make_demographics_table.py` | Participant characteristics table (Table 1). |
 | `scripts/analyze_outcomes.py` | All quantitative outcomes: TAM / Grice ratings, SUS, intention to use, exit preference and exploratory subgroup tests, completion time (Wilcoxon), conversation characteristics, completeness / correctness / efficiency. Writes `outputs/analysis_report.md`. |
-| `outputs/` | Derived, de-identified outputs: `chat_durations.csv`, `sus_scores.csv` (item responses and composite per anonymous participant id), `demographics_table.csv/.md`, `conversation_metrics.csv` (manually graded data quality per participant), `analysis_report.md`. |
 | `docs/data_cleaning.md` | How the 30 analysed participants were selected from the raw platform records (counts and thresholds). |
 
 ## Running
@@ -37,15 +36,15 @@ python3 scripts/analyze_outcomes.py $W --durations outputs/chat_durations.csv \
 
 `--exclude-chats 5db880bb` drops one five-message chat that was aborted by the token-limit error of the 4 January session and restarted from scratch by the same participant; the published time-on-task uses the restarted session only.
 
-Completeness, correctness and efficiency were graded manually by the two authors against the conversation transcripts; `outputs/conversation_metrics.csv` holds the per-participant grades and `analyze_outcomes.py` only summarises them. Completeness was graded relative to the data items the CA had reached in the conversation; `items_correct` in that file gives the absolute number of items (out of 43) recorded correctly, which is below 43 where a conversation ended early.
+Completeness, correctness and efficiency were graded manually by the two authors against the conversation transcripts; `analyze_outcomes.py --metrics` summarises a per-participant CSV of those grades (columns `pct_complete`, `pct_correct`, `efficiency`).
 
 ## Data
 
-Raw data are not distributed: the chat logs, the cross-over platform database (`crossover.db`) and the Open WebUI database contain free-text health information from participants. The cleaned participant workbook is available from the authors on reasonable request, subject to the ethics approval. Everything in `outputs/` is aggregate or keyed by the anonymous participant id assigned by the platform.
+This repository distributes the processing and analysis scripts only. No study data are included, raw or derived: the chat logs, the cross-over platform database (`crossover.db`) and the Open WebUI database contain free-text health information from participants, and participant-level tables are not shared either. The scripts write their outputs to a local `outputs/` folder, which is git-ignored. Aggregate results are reported in the paper; the cleaned participant workbook is available from the authors on reasonable request, subject to the ethics approval.
 
 ## Reproduction notes
 
-Run on the final workbook (5 November 2026), the scripts reproduce the published figures: SUS mean 71.8 (SD 18.2, 95% CI 64.5–79.0, n = 27, α = 0.83); exit preference 15 / 8 / 4 (χ² = 6.89, p = .032; binomial p = .014); subgroup tests (language χ² = 10.32, p = .035; order χ² = 6.10, p = .047, Fisher p = .087); completion time median 13.6 vs 6.4 min (Z = −3.14, p = .001, r = .57; 24/30 longer with the CA, median difference 5.8 min); Table 4 medians 9.3 / 13.6 / 18.0 min with 75% / 87% / 94% of the 496 inter-message gaps classified as active. Interquartile ranges can differ by up to one scale point from the manuscript depending on the quantile interpolation used, and `scipy`'s exact Wilcoxon p-value at the 120 s threshold is .077. See `outputs/analysis_report.md` for the full output.
+Run on the final workbook (5 November 2026), the scripts reproduce the published figures: SUS mean 71.8 (SD 18.2, 95% CI 64.5–79.0, n = 27, α = 0.83); exit preference 15 / 8 / 4 (χ² = 6.89, p = .032; binomial p = .014); subgroup tests (language χ² = 10.32, p = .035; order χ² = 6.10, p = .047, Fisher p = .087); completion time median 13.6 vs 6.4 min (Z = −3.14, p = .001, r = .57; 24/30 longer with the CA, median difference 5.8 min); Table 4 medians 9.3 / 13.6 / 18.0 min with 75% / 87% / 94% of the 496 inter-message gaps classified as active. Interquartile ranges can differ by up to one scale point from the manuscript depending on the quantile interpolation used, and `scipy`'s exact Wilcoxon p-value at the 120 s threshold is .077.
 
 ## Licence
 

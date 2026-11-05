@@ -10,3 +10,7 @@ data/
 __pycache__/
 .DS_Store
 ~$*
+
+# Derived outputs stay local: the repository distributes scripts only
+outputs/
+*.csv
