@@ -15,6 +15,7 @@ The study compared a GPT-based conversational agent (CA) that collects the 43-it
 | Path | Purpose |
 |---|---|
 | `scripts/match_conversations.py` | Links each Open WebUI chat export to a cross-over platform participant (chat user id → Open WebUI user → e-mail → platform credential → participant id and arm). |
+| `scripts/process_chats.py` | Turns an Open WebUI chat export into one readable transcript per chat and one pre-filled completeness/correctness grading template per chat (word and utterance counts, coded answers), used for the manual grading. |
 | `scripts/compute_chat_durations.py` | Active CA time-on-task from the chat logs: first to last user message, minus inter-message gaps longer than an idle threshold (180 s primary; 120 s and 300 s sensitivity analysis, Table 4). |
 | `scripts/compute_sus.py` | System Usability Scale composite (Brooke's 0–100 scoring) per participant, summary statistics, Cronbach's α. |
 | `scripts/make_demographics_table.py` | Participant characteristics table (Table 1). |
@@ -44,7 +45,7 @@ This repository distributes the processing and analysis scripts only. No study d
 
 ## Reproduction notes
 
-Run on the final workbook (5 November 2026), the scripts reproduce the published figures: SUS mean 71.8 (SD 18.2, 95% CI 64.5–79.0, n = 27, α = 0.83); exit preference 15 / 8 / 4 (χ² = 6.89, p = .032; binomial p = .014); subgroup tests (language χ² = 10.32, p = .035; order χ² = 6.10, p = .047, Fisher p = .087); completion time median 13.6 vs 6.4 min (Z = −3.14, p = .001, r = .57; 24/30 longer with the CA, median difference 5.8 min); Table 4 medians 9.3 / 13.6 / 18.0 min with 75% / 87% / 94% of the 496 inter-message gaps classified as active. Interquartile ranges can differ by up to one scale point from the manuscript depending on the quantile interpolation used, and `scipy`'s exact Wilcoxon p-value at the 120 s threshold is .077.
+Run on the final workbook (5 November 2026), the scripts reproduce the published figures: SUS mean 71.8 (SD 18.2, 95% CI 64.5–79.0, n = 27, α = 0.83); exit preference 15 / 8 / 4 (χ² = 6.89, p = .032; binomial p = .014); subgroup tests (language χ² = 10.32, p = .035; order χ² = 6.10, p = .047, Fisher p = .087); completion time median 13.6 vs 6.4 min (Z = −3.14, p = .001, r = .57; 24/30 longer with the CA, median difference 5.8 min); Table 4 medians 9.3 / 13.6 / 18.0 min with 75% / 87% / 94% of the 496 inter-message gaps classified as active. Interquartile ranges can differ by up to one scale point from the manuscript depending on the quantile interpolation used. The manuscript reports `scipy`'s exact Wilcoxon p-values (p = .077 at the 120 s threshold).
 
 ## Licence
 

@@ -33,7 +33,8 @@ def main():
     tcrit = stats.t.ppf(0.975, n - 1)
     ci = (mean - tcrit * se, mean + tcrit * se)
     med = s.median(); q1, q3 = s.quantile([0.25, 0.75])
-    ge68 = int((s >= 68).sum()); ge80 = int((s >= 80.3).sum()); lt50 = int((s < 50).sum())
+    ge68 = int((s >= 68).sum()); lt50 = int((s < 50).sum())
+    n_none = int(sus.isna().all(axis=1).sum()); n_partial = int((~complete).sum() - n_none)
     # Cronbach's alpha on the 10 scored contributions (complete cases)
     c = contrib.loc[complete]
     k = c.shape[1]; alpha = k / (k - 1) * (1 - c.var(ddof=1).sum() / c.sum(axis=1).var(ddof=1))
@@ -48,15 +49,15 @@ def main():
     lines = [
         "# SUS scores (standard 0-100 scoring)", "",
         f"Source: `{SRC}` sheet `Combined`; n = {n} participants with all 10 items "
-        f"({int((~complete).sum())} of {len(df)} had no SUS responses).", "",
+        f"({n_none} of {len(df)} answered no SUS item and {n_partial} answered some but not all items; both excluded).", "",
         "| Statistic | Value |", "|---|---|",
         f"| n | {n} |", f"| Mean | {mean:.1f} |", f"| SD | {sd:.1f} |",
         f"| 95% CI (t) | {ci[0]:.1f} to {ci[1]:.1f} |", f"| Median (IQR) | {med:.1f} ({q1:.1f}-{q3:.1f}) |",
         f"| Range | {s.min():.1f} to {s.max():.1f} |",
-        f"| Share >= 68 (benchmark mean) | {ge68}/{n} ({100*ge68/n:.0f}%) |",
-        f"| Share >= 80.3 (Bangor 'excellent' / grade A) | {ge80}/{n} ({100*ge80/n:.0f}%) |",
-        f"| Share < 50 (Bangor 'not acceptable') | {lt50}/{n} ({100*lt50/n:.0f}%) |",
-        f"| Sauro-Lewis grade of the mean | {grade(mean)} |",
+        f"| Share >= 68 (mean of published SUS scores) | {ge68}/{n} ({100*ge68/n:.0f}%) |",
+        f"| Share < 50 | {lt50}/{n} ({100*lt50/n:.0f}%) |",
+        f"| Sauro-Lewis curved grade of the mean | {grade(mean)} |",
+        f"| Nearest Bangor et al. (2009) adjective-group mean | {'good (71.4)' if abs(mean-71.4) < abs(mean-85.5) and abs(mean-71.4) < abs(mean-50.9) else 'see Bangor Table 3'} |",
         f"| Cronbach's alpha (10 items) | {alpha:.2f} |", "",
         "Per-item mean raw response (1-5, before reversal):", "",
         "| Item | Mean |", "|---|---|",

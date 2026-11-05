@@ -9,8 +9,8 @@ The cross-over platform recorded 115 user accounts across the two experiment ses
 | 3 | Chat present but none of the three questionnaires (back-pain form, usability, exit) submitted | 8 | 53 |
 | 4 | Manual exclusion after review of the 21–22 January data (two accounts belonging to the research team) | 2 | 51 |
 | 5a | Minimal chats: fewer than 200 words in total (one or two user messages, no substantive interaction) | 15 | 36 |
-| 5b | Short chats: 200–800 words, reviewed individually and judged not to be a genuine attempt at the interview | 4 | 32 |
-| 6 | Questionnaire (form) completion time implausible, judged idle during the form step (reviewed individually) | 2 | 30 |
+| 5b | Short chats: 200–500 words, reviewed individually and judged too short for a meaningful back-pain interview (well below the 25th percentile of about 690 words) | 4 | 32 |
+| 6 | Content review: one participant stated they had no back pain and the conversation was off-topic (general prevention questions); one participant's CA session was cut short by the token-limit crash and they completed no questionnaire | 2 | 30 |
 
 A complete back-pain interview with the CA had a median length of roughly 1,650 words over 15–20 conversational turns, which motivated the thresholds in step 5.
 
