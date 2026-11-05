@@ -1,0 +1,12 @@
+# Raw study data are never committed (chat logs may contain health information)
+*.xlsx
+*.xls
+*.db
+*.json
+*.zip
+conversations/
+raw/
+data/
+__pycache__/
+.DS_Store
+~$*
